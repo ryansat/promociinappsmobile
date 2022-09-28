@@ -28,7 +28,7 @@ const Routes = createBottomTabNavigator(
       navigationOptions: {}
     },
     "Pesan Masuk": MessageBox,
-    Eu: Profile
+    Profile: Profile
   },
   {
     tabBarOptions: {
