@@ -7,7 +7,8 @@ import {
   SafeAreaView,
   Image,
   Dimensions,
-  ScrollView
+  ScrollView,
+  
 } from "react-native";
 
 import TextTicker from "react-native-text-ticker";
@@ -40,30 +41,18 @@ function Feed() {
       try {
         const response = await api.get("/datafeed");
         const data = await response.data;
+        console.log("Data: " + data);
         //console.log(data);
         setfeed(data);
         //console.log(feed);
       } catch (error) {
-        console.log("Erro da busca: " + error);
+        console.log("Error Get Data: " + error);
       }
     }
-
     LoadFeed();
-  }, []);
+  }, [feed]);
 
   return (
-    // <ScrollView contentContainerStyle={styles.container}>
-    // <View style={styles.wrapperStyle}>
-    // <Text>
-    // {datafeed = JSON.stringify(feed)}
-    // {console.log("datafeed : "+datafeed)}
-    // </Text>
-
-  
-    // </View>
-    
-
-    // </ScrollView>
     <SafeAreaView>
       <View style={[{ zIndex: 7 }, styles.header]}>
         <View>
@@ -80,22 +69,11 @@ function Feed() {
       </View>
       <View style={styles.container}>
         <VerticalViewPager showsVerticalScrollIndicator={false}>
-          {/* <View>
-            { feed.map((key, item) => (
-              <View>
-                <Text>{item.username}</Text>
-                <Text>{item.uri}</Text>
-                <Text>{item.tags}</Text>
-              </View>
-            ))}
-          </View> */}
           {feed.map(item => (
             <View key={item.id} style={[styles.page_container, styles.post]}>
               <View style={styles.video}>
                 <Video
                   source={{
-                    //  uri: "https://drive.google.com/file/d/1dO3vE8iOz8xoikcNeaJYhbQsUv3kbOgJ/view"
-                    // uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
                     uri: item.url
                   }}
                   rate={1.0}
@@ -112,7 +90,6 @@ function Feed() {
               <View style={styles.content}>
                 <View style={styles.InnerContent}>
                   <TouchableOpacity>
-                    {/* <Text style={styles.name}>{item.author.name}</Text> */}
                   </TouchableOpacity>
                   <TouchableOpacity>
                     <Text style={styles.description} numberOfLines={5}>
@@ -145,7 +122,6 @@ function Feed() {
                 <View style={styles.contentIconProfile}>
                   <TouchableOpacity>
                     <Image
-                      // source={{ uri: item.author.avatar }}
                       style={styles.iconProfile}
                     />
                   </TouchableOpacity>
@@ -175,7 +151,6 @@ function Feed() {
                 <View style={styles.iconsMusic}>
                   <TouchableOpacity>
                     <Image
-                      // source={{ uri: item.author.avatar }}
                       style={styles.iconMusic}
                     />
                   </TouchableOpacity>
@@ -183,7 +158,7 @@ function Feed() {
               </View>
             </View>
           ))}
-        </VerticalViewPager>
+        </VerticalViewPager >
       </View>
     </SafeAreaView>
   );
