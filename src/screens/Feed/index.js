@@ -15,7 +15,7 @@ import VerticalViewPager from "react-native-vertical-view-pager";
 
 const { width, height = height - 50 } = Dimensions.get("window");
 
-import profile from "../../../assets/perfil-marlon.jpg";
+// import profile from "../../../assets/perfil-marlon.jpg";
 import iconPlus from "../../../assets/iconplus.png";
 import whiteHeart from "../../../assets/white-heart-fill.png";
 import redHeart from "../../../assets/red-heart.png";
@@ -38,7 +38,7 @@ function Feed() {
   useEffect(() => {
     async function LoadFeed() {
       try {
-        const response = await api.get("/datavideos");
+        const response = await api.get("/datafeed");
         const data = await response.data;
         //console.log(data);
         setfeed(data);
@@ -96,7 +96,7 @@ function Feed() {
                   source={{
                     //  uri: "https://drive.google.com/file/d/1dO3vE8iOz8xoikcNeaJYhbQsUv3kbOgJ/view"
                     // uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
-                    uri: item.video_url
+                    uri: item.url
                   }}
                   rate={1.0}
                   volume={1.0}
