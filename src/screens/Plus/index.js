@@ -40,6 +40,10 @@ export default function App() {
     camera.stopRecording();
   }
 
+  const uploadVideo = async () => {
+    camera.stopRecording();
+  }
+
   if (hasCameraPermission === null || hasAudioPermission === null ) {
     return <View />;
   }
@@ -87,6 +91,7 @@ export default function App() {
           </Button>
           <Button title="Take video" onPress={() => takeVideo()} />
           <Button title="Stop Video" onPress={() => stopVideo()} />
+          <Button title="Upload Video" onPress={() => stopVideo()} />
           
     </View>
   );
