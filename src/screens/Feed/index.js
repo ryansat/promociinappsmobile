@@ -27,7 +27,7 @@ import whatsapp from "../../../assets/WhatsApp_Logo.png";
 import api from "../../services/api.js";
 
 import { Video } from "expo-av";
-
+import { useFocusEffect } from '@react-navigation/native';
 function Feed() {
   const [feed, setfeed] = useState([]);
   const [liked, setLiked] = useState(false);
@@ -36,21 +36,29 @@ function Feed() {
     setLiked(!liked);
   }
 
-  useEffect(() => {
-    async function LoadFeed() {
+  // useEffect(() => {
+ 
+  // }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      async function LoadFeed() {
       try {
+        console.log('Screen was focused');
         const response = await api.get("/datafeed");
         const data = await response.data;
         console.log("Data: " + data);
-        //console.log(data);
         setfeed(data);
-        //console.log(feed);
       } catch (error) {
         console.log("Error Get Data: " + error);
       }
     }
     LoadFeed();
-  }, [feed]);
+      return () => {
+        console.log('Screen was unfocused');
+      };
+    }, [])
+  );
 
   return (
     <SafeAreaView>
