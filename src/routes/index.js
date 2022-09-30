@@ -1,77 +1,83 @@
-import React from "react";
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+const Stack = createStackNavigator();
+import Home from '../screens/Feed';
+import Discover from '../screens/Find';
+import Plus from '../screens/Plus';
+import Inbox from '../screens/MessageBox';
+import Profile from '../screens/Profile';
 
-import { Image, Text } from "react-native";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { createAppContainer } from "react-navigation";
-import { createBottomTabNavigator, BottomTabBar } from "react-navigation-tabs";
 
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
-import Feed from "../screens/Feed";
-import Find from "../screens/Find";
-import Plus from "../screens/Plus";
-import MessageBox from "../screens/MessageBox";
-import Profile from "../screens/Profile";
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faHome, faSearch, faInbox, faUser, faPlus } from '@fortawesome/free-solid-svg-icons';
 
-import message from "../../assets/windowscomments-grey.png";
-import userProfile from "../../assets/userProfile.png";
-import search from "../../assets/search-grey.png";
-import plusTikTokWhite from "../../assets/plusTikTok-white.png";
-import home from "../../assets/home.png";
+const Tab = createBottomTabNavigator();
 
-const Routes = createBottomTabNavigator(
-  {
-    Beranda: Feed,
-    Pencarian: Find,
-    Plus: {
-      screen: Plus,
-      navigationOptions: {}
-    },
-    "Pesan Masuk": MessageBox,
-    Profile: Profile
-  },
-  {
-    tabBarOptions: {
-      activeTintColor: "white",
-      inactiveTintColor: "grey",
-      showLabel: false,
-      style: {
-        backgroundColor: "black",
-        height: 57,
-        borderTopColor: "grey",
-        borderTopWidth: 0.19,
-        paddingVertical: 7
-      }
-    },
-    defaultNavigationOptions: ({ navigation }) => ({
-      tabBarIcon: ({ focused, horizontal, tintColor }) => {
-        const { routeName } = navigation.state;
-        let IconComponent = FontAwesome5;
-        let IconName;
-
-        if (routeName === "Beranda") IconName = home;
-        else if (routeName === "Pencarian") IconName = search;
-        else if (routeName === "Plus") IconName = plusTikTokWhite;
-        else if (routeName === "Kotak Masuk") IconName = message;
-        else if (routeName === "Akun") IconName = userProfile;
-
-        return (
-          <>
-            <Image
-              source={IconName}
-              style={{
-                width: IconName === plusTikTokWhite ? 43 : 25,
-                height: IconName === plusTikTokWhite ? 28 : 25
-              }}
-            />
-            {routeName === "Plus" ? null : (
-              <Text style={{ color: "grey", fontSize: 10 }}>{routeName}</Text>
-            )}
-          </>
-        );
-      }
-    })
-  }
-);
-
-export default createAppContainer(Routes);
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        tabBarActiveTintColor: faHome,
+      }}
+    >
+      <Tab.Screen
+        name="Feed"
+        component={Home}
+        options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesomeIcon icon={faHome} size={28} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Search"
+        component={Discover}
+        options={{
+          tabBarLabel: 'Discover',
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesomeIcon icon={faSearch} size={28} />
+          )
+        }}
+      />
+      <Tab.Screen
+        name="Plus"
+        component={Plus}
+        options={{
+          tabBarLabel: 'Plus',
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesomeIcon icon={faPlus} size={28} />
+          )
+        }}
+      />
+      <Tab.Screen
+        name="Inbox"
+        component={Inbox}
+        options={{
+          tabBarLabel: 'Inbox',
+          tabBarIcon: ({ color, size }) => (
+             <FontAwesomeIcon icon={faInbox} size={20} color="#010101" />
+          )
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({ color, size }) => (
+             <FontAwesomeIcon icon={faUser} size={20} color="#010101" />
+          )
+        }}
+      />
+    </Tab.Navigator>
+          
+    </NavigationContainer>
+    
+  );
+}
