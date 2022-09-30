@@ -1,8 +1,11 @@
-import React from "react";
-import { SafeAreaView } from "react-native";
+import React from 'react';
 
-import Routes from "./src/routes";
+import Routes from './src/routes'
 
-export default function App() {
-  return <Routes />;
+function App() {
+  return (
+    <Routes />
+  )
 }
+
+export default App;
