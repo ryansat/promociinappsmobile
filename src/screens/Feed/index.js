@@ -8,7 +8,7 @@ import {
   Image,
   Dimensions,
   ScrollView,
-  
+
 } from "react-native";
 
 import TextTicker from "react-native-text-ticker";
@@ -37,154 +37,155 @@ function Feed() {
   }
 
   // useEffect(() => {
- 
+
   // }, []);
 
   useFocusEffect(
-    React.useCallback(() => {
-      async function LoadFeed() {
-      try {
-        console.log('Screen was focused');
-        const response = await api.get("/datafeed");
-        const data = await response.data;
-        console.log("Data: " + data);
-        setfeed(data);
-      } catch (error) {
-        console.log("Error Get Data: " + error);
-      }
-    }
-    LoadFeed();
-      return () => {
-        console.log('Screen was unfocused');
-      };
-    }, [])
+      React.useCallback(() => {
+        async function LoadFeed() {
+          try {
+            console.log('Screen was focused');
+            const response = await api.get("/datafeed");
+            const data = await response.data;
+            console.log("Data: " + data);
+            setfeed(data);
+          } catch (error) {
+            console.log("Error Get Data: " + error);
+          }
+        }
+        LoadFeed();
+        return () => {
+          console.log('Screen was unfocused');
+        };
+      }, [])
   );
 
   return (
-    <SafeAreaView>
-      <View style={[{ zIndex: 7 }, styles.header]}>
-        <View>
-          <TouchableOpacity>
-            <Text style={styles.textLeftHeader}>Mengikuti</Text>
-          </TouchableOpacity>
+      <SafeAreaView>
+        <View style={[{ zIndex: 7 }, styles.header]}>
+          <View>
+            <TouchableOpacity>
+              <Text style={styles.textLeftHeader}>Mengikuti</Text>
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.spanCenterHeader}>|</Text>
+          <View>
+            <TouchableOpacity>
+              <Text style={styles.textRightHeader}>Untuk Anda</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <Text style={styles.spanCenterHeader}>|</Text>
-        <View>
-          <TouchableOpacity>
-            <Text style={styles.textRightHeader}>Untuk Anda</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-      <View style={styles.container}>
-        <VerticalViewPager showsVerticalScrollIndicator={false}>
-          {feed.map(item => (
-            <View key={item.id} style={[styles.page_container, styles.post]}>
-              <View style={styles.video}>
-                <Video
-                  source={{
-                    uri: item.url
-                  }}
-                  rate={1.0}
-                  volume={1.0}
-                  isMuted={true}
-                  resizeMode="contain"
-                  shouldPlay
-                  bounce={false}
-                  isLooping
-                  style={styles.videoPlayer}
-                  useNativeControls={false}
-                />
-              </View>
-              <View style={styles.content}>
-                <View style={styles.InnerContent}>
-                  <TouchableOpacity>
-                  </TouchableOpacity>
-                  <TouchableOpacity>
-                    <Text style={styles.description} numberOfLines={5}>
-                      {item.description}
-                    </Text>
-                  </TouchableOpacity>
-                  <Text style={styles.hashtags}>{item.hashtags}</Text>
-                  <TouchableOpacity>
-                    <Text style={styles.translate}>Lihat Terjemahan</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.componentMusic}>
-                    <View style={styles.imageIconMusic}>
-                      <Image style={styles.iMusic} source={iconMusic} />
-                    </View>
-                    <TextTicker
-                      style={styles.nameMusic}
-                      duration={4000}
-                      loop
-                      bounce={false}
-                      repeatSpacer={70}
-                      marqueeDelay={1000}
-                      shouldAnimateTreshold={40}
-                    >
-                      I Don’t Care - Ed Sheeran Part Justin Bieber
-                    </TextTicker>
-                  </TouchableOpacity>
-                </View>
-              </View>
-              <View style={styles.contentIcon}>
-                <View style={styles.contentIconProfile}>
-                  <TouchableOpacity>
-                    <Image
-                      style={styles.iconProfile}
+        <View style={styles.container}>
+          <VerticalViewPager showsVerticalScrollIndicator={true}>
+            {feed.map(item => (
+                <View key={item.id} style={[styles.page_container, styles.post]}>
+                  <View style={styles.videoPlayer}>
+                    <Video
+                        source={{
+                          uri: item.url
+                        }}
+                        rate={1.0}
+                        volume={1.0}
+                        isMuted={true}
+                        resizeMode="contain"
+                        shouldPlay={false}
+                        bounce={false}
+                        isLooping={false}
+                        style={styles.videoPlayer}
+                        useNativeControls={true}
                     />
-                  </TouchableOpacity>
-                  <TouchableOpacity>
-                    <Image source={iconPlus} style={styles.iconPlusProfile} />
-                  </TouchableOpacity>
-                </View>
-                <View style={styles.iconsAction}>
-                  <View style={styles.contentIconAction}>
-                    <TouchableOpacity onPress={handleLike}>
-                      <Image
-                        source={liked ? redHeart : whiteHeart}
-                        style={styles.iconAction}
-                      />
-                    </TouchableOpacity>
-                    <Text style={styles.textActions}>153.1K</Text>
                   </View>
-                  <TouchableOpacity style={styles.contentIconAction}>
-                    <Image source={comment} style={styles.iconAction} />
-                    <Text style={styles.textActions}>208</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.contentIconAction}>
-                    <Image source={whatsapp} style={styles.iconWhatsapp} />
-                    <Text style={styles.textActions}>Bagikan Ke Whatsapp</Text>
-                  </TouchableOpacity>
+                  <View style={styles.content}>
+                    <View style={styles.InnerContent}>
+                      <TouchableOpacity>
+                      </TouchableOpacity>
+                      {/*<TouchableOpacity>*/}
+                      {/*  <Text style={styles.description} numberOfLines={5}>*/}
+                      {/*    {item.description}*/}
+                      {/*  </Text>*/}
+                      {/*</TouchableOpacity>*/}
+                      {/*<Text style={styles.hashtags}>{item.hashtags}</Text>*/}
+                      {/*/!*<TouchableOpacity>*!/*/}
+                      {/*/!*  <Text style={styles.translate}>Lihat Terjemahan</Text>*!/*/}
+                      {/*/!*</TouchableOpacity>*!/*/}
+                      {/*<TouchableOpacity style={styles.componentMusic}>*/}
+                      {/*  <View style={styles.imageIconMusic}>*/}
+                      {/*    <Image style={styles.iMusic} source={iconMusic} />*/}
+                      {/*  </View>*/}
+                      {/*  <TextTicker*/}
+                      {/*      style={styles.nameMusic}*/}
+                      {/*      duration={4000}*/}
+                      {/*      loop*/}
+                      {/*      bounce={false}*/}
+                      {/*      repeatSpacer={70}*/}
+                      {/*      marqueeDelay={1000}*/}
+                      {/*      shouldAnimateTreshold={40}*/}
+                      {/*  >*/}
+                      {/*    I Don’t Care - Ed Sheeran Part Justin Bieber*/}
+                      {/*  </TextTicker>*/}
+                      {/*</TouchableOpacity>*/}
+                    </View>
+                  </View>
+                  <View style={styles.contentIcon}>
+                    <View style={styles.contentIconProfile}>
+                      <TouchableOpacity>
+                        <Image
+                            style={styles.iconProfile}
+                        />
+                      </TouchableOpacity>
+                      <TouchableOpacity>
+                        <Image source={iconPlus} style={styles.iconPlusProfile} />
+                      </TouchableOpacity>
+                    </View>
+                    <View style={styles.iconsAction}>
+                      <View style={styles.contentIconAction}>
+                        <TouchableOpacity onPress={handleLike}>
+                          <Image
+                              source={liked ? redHeart : whiteHeart}
+                              style={styles.iconAction}
+                          />
+                        </TouchableOpacity>
+                        <Text style={styles.textActions}>153.1K</Text>
+                      </View>
+                      <TouchableOpacity style={styles.contentIconAction}>
+                        <Image source={comment} style={styles.iconAction} />
+                        <Text style={styles.textActions}>208</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity style={styles.contentIconAction}>
+                        <Image source={whatsapp} style={styles.iconWhatsapp} />
+                        <Text style={styles.textActions}>Bagikan Ke Whatsapp</Text>
+                      </TouchableOpacity>
+                    </View>
+                    <View style={styles.iconsMusic}>
+                      <TouchableOpacity>
+                        <Image
+                            style={styles.iconMusic}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  </View>
                 </View>
-                <View style={styles.iconsMusic}>
-                  <TouchableOpacity>
-                    <Image
-                      style={styles.iconMusic}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
-          ))}
-        </VerticalViewPager >
-      </View>
-    </SafeAreaView>
+            ))}
+          </VerticalViewPager >
+        </View>
+      </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    height,
+    height: "100%",
     backgroundColor: "black",
     zIndex: 1,
     alignSelf: "stretch"
   },
   post: {
     display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    // alignItems: "center",
+    // justifyContent: "center",
     width: "100%",
+    height: 550,
     flex: 1,
     zIndex: 2,
     alignSelf: "stretch",
@@ -195,11 +196,6 @@ const styles = StyleSheet.create({
     flex: 1,
     width,
     height
-  },
-  video: {
-    width: "100%",
-    flex: 1,
-    zIndex: 2
   },
   videoPlayer: {
     width: "100%",
